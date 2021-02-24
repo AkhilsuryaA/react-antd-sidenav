@@ -1,0 +1,106 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+import 'antd/dist/antd.css';
+import './index.css';
+import { Menu } from 'antd';
+import { AppstoreOutlined, MailOutlined, AppstoreOutlined , UnorderedListOutlined, UserAddOutlined, ProfileOutlined, UnorderedListOutlined, FileDoneOutlined, SettingOutlined   } from '@ant-design/icons';
+
+const { SubMenu } = Menu;
+
+const arr = [
+  {
+    title : 'mone',
+    key:"01",
+      submenu : [{
+      title : "hello",key : "11",
+      submenu : [
+      {
+        title : "hello1-1",key : "11-1",
+        submenu : []
+      },
+      {
+        title : "hello1-2",key : "11-2",
+        submenu : []
+      }
+      ]
+    },
+      {
+        title : "hello 2",key : "22",
+        submenu : []
+      },
+    ]
+  },
+  {
+    title : 'mone1',
+    key:"011",
+      submenu : [
+    ]
+  },
+]
+function Sider () {
+
+  //console.log(arr);
+
+  const handleClick = e => {
+    console.log('click ', e);
+  };
+
+    return (
+      <Menu
+        onClick={handleClick}
+        style={{ width: 256 }}
+        defaultSelectedKeys={['1']}
+        defaultOpenKeys={['sub1']}
+        mode="inline"
+      >
+      {
+        arr.map(first => (
+          first.submenu.length>0?(
+          <SubMenu 
+            key={first.key}
+            title={first.title}
+          >
+            {first.submenu.length>0?(
+              first.submenu.map((second) => (
+                <Menu.ItemGroup key={second.key} title={second.title}> 
+                  {second.submenu.map(third => (
+                    <Menu.Item key={third.key}>{third.title}</Menu.Item>
+                  ))}
+                </Menu.ItemGroup>
+              ))
+            ):("")}
+          </SubMenu>
+          ):(
+            <Menu.Item key={first.key}>{first.title}</Menu.Item>
+          )
+        ))
+      }
+        <SubMenu key="sub1" icon={<MailOutlined />} title="Navigation One">
+          <Menu.ItemGroup key="g1" title="Item 1">
+            <Menu.Item key="1">Option 1</Menu.Item>
+            <Menu.Item key="2">Option 2</Menu.Item>
+          </Menu.ItemGroup>
+          <Menu.ItemGroup key="g2" title="Item 2">
+            <Menu.Item key="3">Option 3</Menu.Item>
+            <Menu.Item key="4">Option 4</Menu.Item>
+          </Menu.ItemGroup>
+        </SubMenu>
+        <SubMenu key="sub2" icon={<AppstoreOutlined />} title="Navigation Two">
+          <Menu.Item key="5">Option 5</Menu.Item>
+          <Menu.Item key="6">Option 6</Menu.Item>
+          <SubMenu key="sub3" title="Submenu">
+            <Menu.Item key="7">Option 7</Menu.Item>
+            <Menu.Item key="8">Option 8</Menu.Item>
+          </SubMenu>
+        </SubMenu>
+        <SubMenu key="sub4" icon={<SettingOutlined />} title="Navigation Three">
+          <Menu.Item key="9">Option 9</Menu.Item>
+          <Menu.Item key="10">Option 10</Menu.Item>
+          <Menu.Item key="11">Option 11</Menu.Item>
+          <Menu.Item key="12">Option 12</Menu.Item>
+        </SubMenu>
+      </Menu>
+    );
+}
+
+ReactDOM.render(<Sider />, document.getElementById('container'));
